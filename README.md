@@ -1,6 +1,8 @@
 # quality_decomposition
 
-Experiments to replicate [Krsinich (2024) Understanding the quality change implied by multilateral price indexes](https://www.researchgate.net/publication/385980567_Understanding_the_quality_change_implied_by_multilateral_price_indexes) using [open NZ data from 2019](https://code.officialstatistics.org/scanner-task-team-gwg/FEWS_package/-/blob/master/data/SampleDataSet.csv?ref_type=heads)
+Experiments to replicate [Krsinich (2024) Understanding the quality change implied by multilateral price indexes](https://www.researchgate.net/publication/385980567_Understanding_the_quality_change_implied_by_multilateral_price_indexes) as I don't have access to the original data. 
+
+Using [open NZ data from 2019](https://code.officialstatistics.org/scanner-task-team-gwg/FEWS_package/-/blob/master/data/SampleDataSet.csv?ref_type=heads) placed in `/data/` folder (gitignored).
 
 ---------------------------------------------
 
