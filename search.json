@@ -1,0 +1,22 @@
+[
+  {
+    "objectID": "docs/index.html",
+    "href": "docs/index.html",
+    "title": "Overview",
+    "section": "",
+    "text": "This site is a way to document the replication of France Krisnich’s article Understanding the quality change implied by multilateral price indexes.\nAs the code is provided as a set of R code and is based on a custom set of data, this repo is to replicate this research with public data.",
+    "crumbs": [
+      "Overview"
+    ]
+  },
+  {
+    "objectID": "docs/index.html#purpose-of-site",
+    "href": "docs/index.html#purpose-of-site",
+    "title": "Overview",
+    "section": "",
+    "text": "This site is a way to document the replication of France Krisnich’s article Understanding the quality change implied by multilateral price indexes.\nAs the code is provided as a set of R code and is based on a custom set of data, this repo is to replicate this research with public data.",
+    "crumbs": [
+      "Overview"
+    ]
+  }
+]
