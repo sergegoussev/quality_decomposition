@@ -1,0 +1,33 @@
+project:
+  type: website
+
+execute:
+  freeze: auto
+
+website:
+  title: "Reproducing Quality Decomposition"
+  repo-url: https://github.com/sergegoussev/quality_decomposition
+  repo-actions: [source]
+  repo-branch: main
+  bread-crumbs: true
+  page-navigation: true
+  back-to-top-navigation: true
+  search: true
+  sidebar:
+    style: "docked"
+    type: "dark"
+    search: true
+    border: true
+    contents:
+      - href: docs/index.qmd
+        text: Overview
+
+
+
+format:
+  html:
+    theme: 
+      dark: cyborg
+      light: flatly
+    css: docs/styles.css
+    toc: true
