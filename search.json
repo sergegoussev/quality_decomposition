@@ -1,5 +1,27 @@
 [
   {
+    "objectID": "notebooks/data_wrangling.html",
+    "href": "notebooks/data_wrangling.html",
+    "title": "Data wrangling",
+    "section": "",
+    "text": "The paper uses an .Rdata file that is not publicly available - that is a set of 10 separate dataframes per product (i.e. category). See Table 1 in the paper for a summary stats by product.\nEach category’s dataframe has the following variables: - period, Date format e.g. “2021-06-01” - price, num format - volume, num format - value, num format - id, Factor format\nRequirements for the data that is used by TPD:",
+    "crumbs": [
+      "Data preparation",
+      "Data wrangling"
+    ]
+  },
+  {
+    "objectID": "notebooks/data_wrangling.html#modifying-public-data",
+    "href": "notebooks/data_wrangling.html#modifying-public-data",
+    "title": "Data wrangling",
+    "section": "",
+    "text": "The paper uses an .Rdata file that is not publicly available - that is a set of 10 separate dataframes per product (i.e. category). See Table 1 in the paper for a summary stats by product.\nEach category’s dataframe has the following variables: - period, Date format e.g. “2021-06-01” - price, num format - volume, num format - value, num format - id, Factor format\nRequirements for the data that is used by TPD:",
+    "crumbs": [
+      "Data preparation",
+      "Data wrangling"
+    ]
+  },
+  {
     "objectID": "docs/index.html",
     "href": "docs/index.html",
     "title": "Overview",
