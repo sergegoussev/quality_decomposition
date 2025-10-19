@@ -8,6 +8,6 @@ format:
 
 ## Purpose of site
 
-This site is a way to document the replication of France Krisnich's article [Understanding the quality change implied by multilateral price indexes](https://www.researchgate.net/publication/385980567_Understanding_the_quality_change_implied_by_multilateral_price_indexes). 
+This site is a way to document the replication of France Krisnich's article [Understanding the quality change implied by multilateral price indexes](https://www.researchgate.net/publication/385980567_Understanding_the_quality_change_implied_by_multilateral_price_indexes).
 
 As the code is provided as a set of R code and is based on a custom set of data, this repo is to replicate this research with public data.

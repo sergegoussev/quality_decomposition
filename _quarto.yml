@@ -21,6 +21,9 @@ website:
     contents:
       - href: docs/index.qmd
         text: Overview
+      - section: "Data preparation"
+        contents:
+          - href: notebooks/data_wrangling.ipynb
 
 
 

@@ -1,7 +1,26 @@
-name: quality-decomposition-r
+name: quality-decomposition
+
+channels:
+  - conda-forge
+  - defaults
+
 dependencies:
-  - r-base=4.4.3
+  # Python packages
+  - python=3.12
+  - pandas
+  - numpy
+  - scikit-learn
+  - ipykernel
+
+  # R packages
+  - r-base
+  - r-tidyverse
+  - r-irkernel
+  - r-essentials
   - r-arrow
   - r-dplyr
-  - r-tidyverse
   - r-plotly
+
+  # Other tools
+  - mamba
+  - pip
