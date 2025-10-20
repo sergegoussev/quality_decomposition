@@ -20,10 +20,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -71,6 +106,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="docs/styles.css">
@@ -305,7 +343,18 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#modifying-public-data" id="toc-modifying-public-data" class="nav-link active" data-scroll-target="#modifying-public-data">Modifying public data</a></li>
+  <li><a href="#overview-of-requirements" id="toc-overview-of-requirements" class="nav-link active" data-scroll-target="#overview-of-requirements">1. Overview of requirements</a>
+  <ul class="collapse">
+  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a></li>
+  <li><a href="#steps-to-take" id="toc-steps-to-take" class="nav-link" data-scroll-target="#steps-to-take">Steps to take</a></li>
+  </ul></li>
+  <li><a href="#steps-to-replicate" id="toc-steps-to-replicate" class="nav-link" data-scroll-target="#steps-to-replicate">Steps to replicate</a>
+  <ul class="collapse">
+  <li><a href="#step-1a.-load-the-raw-data" id="toc-step-1a.-load-the-raw-data" class="nav-link" data-scroll-target="#step-1a.-load-the-raw-data">Step 1a. Load the raw data</a></li>
+  <li><a href="#step-1b.-format-data-to-be-by-product" id="toc-step-1b.-format-data-to-be-by-product" class="nav-link" data-scroll-target="#step-1b.-format-data-to-be-by-product">Step 1b. Format data to be by product</a></li>
+  <li><a href="#step-2.-get-the-expenditure-shares-log-prices-and-factor-periods" id="toc-step-2.-get-the-expenditure-shares-log-prices-and-factor-periods" class="nav-link" data-scroll-target="#step-2.-get-the-expenditure-shares-log-prices-and-factor-periods">Step 2. Get the expenditure shares, log prices, and factor periods</a></li>
+  <li><a href="#save-the-processed-data" id="toc-save-the-processed-data" class="nav-link" data-scroll-target="#save-the-processed-data">Save the processed data</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/sergegoussev/quality_decomposition/blob/main/notebooks/data_wrangling.ipynb" class="toc-action"><i class="bi bi-github"></i>View source</a></li></ul></div></nav>
     </div>
@@ -332,13 +381,422 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="modifying-public-data" class="level2">
-<h2 class="anchored" data-anchor-id="modifying-public-data">Modifying public data</h2>
-<p>The paper uses an <code>.Rdata</code> file that is not publicly available - that is a set of 10 separate dataframes per product (i.e.&nbsp;category). See Table 1 in the paper for a summary stats by product.</p>
-<p>Each category’s dataframe has the following variables: - period, Date format e.g.&nbsp;“2021-06-01” - price, num format - volume, num format - value, num format - id, Factor format</p>
-<p>Requirements for the data that is used by TPD:</p>
+<p>This notebook modifies the wrangling step to work with open data. The paper depends on an <code>.Rdata</code> file (that is not publicly available) that contains a set of 10 separate dataframes per product (i.e.&nbsp;category) – see Table 1 in the paper for a summary stats by product. To work with the <a href="https://code.officialstatistics.org/scanner-task-team-gwg/FEWS_package/-/blob/master/data/SampleDataSet.csv?ref_type=heads">open New Zealand data</a> that is similar - I modified the wrangling step.</p>
+<div id="374c5f4e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<div class="ansi-escaped-output">
+<pre>── <span class="ansi-bold">Attaching core tidyverse packages</span> ──────────────────────── tidyverse 2.0.0 ──
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">dplyr    </span> 1.1.4     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">readr    </span> 2.1.5
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">forcats  </span> 1.0.1     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">stringr  </span> 1.5.2
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">ggplot2  </span> 4.0.0     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tibble   </span> 3.3.0
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">lubridate</span> 1.9.4     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tidyr    </span> 1.3.1
+
+<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">purrr    </span> 1.1.0     
+
+── <span class="ansi-bold">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──
+
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">filter()</span> masks <span class="ansi-blue-fg">stats</span>::filter()
+
+<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">lag()</span>    masks <span class="ansi-blue-fg">stats</span>::lag()
+
+<span class="ansi-cyan-fg">ℹ</span> Use the conflicted package (<span style="font-style:italic" class="ansi-blue-fg">&lt;http://conflicted.r-lib.org/&gt;</span>) to force all conflicts to become errors
+</pre>
+</div>
+</div>
+</div>
+<section id="overview-of-requirements" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-requirements">1. Overview of requirements</h2>
+<section id="input" class="level3">
+<h3 class="anchored" data-anchor-id="input">Input</h3>
+<p>The <code>.Rdata</code> file contains 10 dataframes - each has the following variables: - <code>period</code>, Date format e.g.&nbsp;“2021-06-01” - <code>price</code>, num format - <code>volume</code>, num format - <code>value</code>, num format - <code>id</code>, Factor format</p>
+</section>
+<section id="steps-to-take" class="level3">
+<h3 class="anchored" data-anchor-id="steps-to-take">Steps to take</h3>
+<p>The wrangling script <a href="https://github.com/sergegoussev/quality_decomposition/blob/main/R/qualdecomp_1wrangle.R">qualdecomp_1wrangle.R</a> takes each and computes the following: 1. Calculate expenditure shares per product as a proportion of the total expenditure on all products. 2. Derives the log of price 3. Makes the period a factor for the TPD</p>
+</section>
+</section>
+<section id="steps-to-replicate" class="level2">
+<h2 class="anchored" data-anchor-id="steps-to-replicate">Steps to replicate</h2>
+<section id="step-1a.-load-the-raw-data" class="level3">
+<h3 class="anchored" data-anchor-id="step-1a.-load-the-raw-data">Step 1a. Load the raw data</h3>
+<div id="59c3c4ce" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/raw/NZ_dataset_historic_raw.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(alldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small">
+<caption>A data.frame: 6 × 15</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">month_num</th>
+<th data-quarto-table-cell-role="th" scope="col">char11</th>
+<th data-quarto-table-cell-role="th" scope="col">char1</th>
+<th data-quarto-table-cell-role="th" scope="col">char2</th>
+<th data-quarto-table-cell-role="th" scope="col">char3</th>
+<th data-quarto-table-cell-role="th" scope="col">char4</th>
+<th data-quarto-table-cell-role="th" scope="col">char5</th>
+<th data-quarto-table-cell-role="th" scope="col">char6</th>
+<th data-quarto-table-cell-role="th" scope="col">char7</th>
+<th data-quarto-table-cell-role="th" scope="col">char8</th>
+<th data-quarto-table-cell-role="th" scope="col">char9</th>
+<th data-quarto-table-cell-role="th" scope="col">char10</th>
+<th data-quarto-table-cell-role="th" scope="col">prodid_num</th>
+<th data-quarto-table-cell-role="th" scope="col">quantity</th>
+<th data-quarto-table-cell-role="th" scope="col">value</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">1</th>
+<td>2017-01-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>280</td>
+<td>196420</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">2</th>
+<td>2017-02-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>126</td>
+<td>85312</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">3</th>
+<td>2017-03-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>148</td>
+<td>95920</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">4</th>
+<td>2017-04-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>56</td>
+<td>38552</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">5</th>
+<td>2017-05-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>69</td>
+<td>47397</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">6</th>
+<td>2017-06-01</td>
+<td>brand_a</td>
+<td>10.6</td>
+<td>16006</td>
+<td>val_w</td>
+<td>val_a</td>
+<td>val_a</td>
+<td>PRG566</td>
+<td>CCC</td>
+<td>150D</td>
+<td>B230</td>
+<td>ted</td>
+<td>3</td>
+<td>43</td>
+<td>28303</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-1b.-format-data-to-be-by-product" class="level3">
+<h3 class="anchored" data-anchor-id="step-1b.-format-data-to-be-by-product">Step 1b. Format data to be by product</h3>
+<div id="1566a483" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="35">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>product <span class="ot">&lt;-</span> alldata <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="fu">c</span>(month_num, prodid_num, quantity, value)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">expenditure =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> value<span class="sc">/</span>quantity) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">i =</span> prodid_num, <span class="at">period =</span> month_num)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small">
+<caption>A data.frame: 6 × 5</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">period</th>
+<th data-quarto-table-cell-role="th" scope="col">i</th>
+<th data-quarto-table-cell-role="th" scope="col">quantity</th>
+<th data-quarto-table-cell-role="th" scope="col">expenditure</th>
+<th data-quarto-table-cell-role="th" scope="col">price</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">1</th>
+<td>2017-01-01</td>
+<td>3</td>
+<td>280</td>
+<td>196420</td>
+<td>701.5000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">2</th>
+<td>2017-02-01</td>
+<td>3</td>
+<td>126</td>
+<td>85312</td>
+<td>677.0794</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">3</th>
+<td>2017-03-01</td>
+<td>3</td>
+<td>148</td>
+<td>95920</td>
+<td>648.1081</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">4</th>
+<td>2017-04-01</td>
+<td>3</td>
+<td>56</td>
+<td>38552</td>
+<td>688.4286</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">5</th>
+<td>2017-05-01</td>
+<td>3</td>
+<td>69</td>
+<td>47397</td>
+<td>686.9130</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">6</th>
+<td>2017-06-01</td>
+<td>3</td>
+<td>43</td>
+<td>28303</td>
+<td>658.2093</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step-2.-get-the-expenditure-shares-log-prices-and-factor-periods" class="level3">
+<h3 class="anchored" data-anchor-id="step-2.-get-the-expenditure-shares-log-prices-and-factor-periods">Step 2. Get the expenditure shares, log prices, and factor periods</h3>
+<div id="a79fd86d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="36">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tot_exps <span class="ot">&lt;-</span> product <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(period) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_exp =</span> <span class="fu">sum</span>(expenditure))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>product_s_l <span class="ot">&lt;-</span> <span class="fu">merge</span>(product, tot_exps, <span class="at">by =</span> <span class="st">"period"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exp_share =</span> expenditure<span class="sc">/</span>tot_exp,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">logprice =</span> <span class="fu">log</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(tot_exp)) </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>product_s_l<span class="sc">$</span>period <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(product_s_l<span class="sc">$</span>period)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product_s_l)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">period</th>
+<th data-quarto-table-cell-role="th" scope="col">i</th>
+<th data-quarto-table-cell-role="th" scope="col">quantity</th>
+<th data-quarto-table-cell-role="th" scope="col">expenditure</th>
+<th data-quarto-table-cell-role="th" scope="col">price</th>
+<th data-quarto-table-cell-role="th" scope="col">exp_share</th>
+<th data-quarto-table-cell-role="th" scope="col">logprice</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;fct&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">1</th>
+<td>2017-01-01</td>
+<td>3</td>
+<td>280</td>
+<td>196420</td>
+<td>701.5000</td>
+<td>1.562999e-02</td>
+<td>6.553221</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">2</th>
+<td>2017-01-01</td>
+<td>366</td>
+<td>1</td>
+<td>1009</td>
+<td>1009.0000</td>
+<td>8.029052e-05</td>
+<td>6.916715</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">3</th>
+<td>2017-01-01</td>
+<td>1004</td>
+<td>33</td>
+<td>52688</td>
+<td>1596.6061</td>
+<td>4.192614e-03</td>
+<td>7.375635</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">4</th>
+<td>2017-01-01</td>
+<td>1004</td>
+<td>1</td>
+<td>1221</td>
+<td>1221.0000</td>
+<td>9.716029e-05</td>
+<td>7.107425</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" scope="row">5</th>
+<td>2017-01-01</td>
+<td>741</td>
+<td>230</td>
+<td>305802</td>
+<td>1329.5739</td>
+<td>2.433400e-02</td>
+<td>7.192614</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th" scope="row">6</th>
+<td>2017-01-01</td>
+<td>943</td>
+<td>99</td>
+<td>85891</td>
+<td>867.5859</td>
+<td>6.834721e-03</td>
+<td>6.765714</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="save-the-processed-data" class="level3">
+<h3 class="anchored" data-anchor-id="save-the-processed-data">Save the processed data</h3>
+<p>Specifically to <code>/data/processed/</code></p>
+<div id="7104105f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="58">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(product_s_l, <span class="st">"../data/processed/product_s_1_raw.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 
 
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
