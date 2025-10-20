@@ -24,6 +24,9 @@ website:
       - section: "Data preparation"
         contents:
           - href: notebooks/data_wrangling.ipynb
+      - section: "Price indices"
+        contents: 
+          - href: notebooks/tpd.ipynb
 
 
 
