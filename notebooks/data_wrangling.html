@@ -345,10 +345,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview-of-requirements" id="toc-overview-of-requirements" class="nav-link active" data-scroll-target="#overview-of-requirements">1. Overview of requirements</a>
   <ul class="collapse">
-  <li><a href="#input" id="toc-input" class="nav-link" data-scroll-target="#input">Input</a></li>
+  <li><a href="#research-expected-input" id="toc-research-expected-input" class="nav-link" data-scroll-target="#research-expected-input">Research expected input</a></li>
+  <li><a href="#data-input-that-is-available" id="toc-data-input-that-is-available" class="nav-link" data-scroll-target="#data-input-that-is-available">Data input that is available</a></li>
   <li><a href="#steps-to-take" id="toc-steps-to-take" class="nav-link" data-scroll-target="#steps-to-take">Steps to take</a></li>
   </ul></li>
-  <li><a href="#steps-to-replicate" id="toc-steps-to-replicate" class="nav-link" data-scroll-target="#steps-to-replicate">Steps to replicate</a>
+  <li><a href="#replicating-the-process-with-another-dataset" id="toc-replicating-the-process-with-another-dataset" class="nav-link" data-scroll-target="#replicating-the-process-with-another-dataset">Replicating the process with another dataset</a>
   <ul class="collapse">
   <li><a href="#step-1a.-load-the-raw-data" id="toc-step-1a.-load-the-raw-data" class="nav-link" data-scroll-target="#step-1a.-load-the-raw-data">Step 1a. Load the raw data</a></li>
   <li><a href="#step-1b.-format-data-to-be-by-product" id="toc-step-1b.-format-data-to-be-by-product" class="nav-link" data-scroll-target="#step-1b.-format-data-to-be-by-product">Step 1b. Format data to be by product</a></li>
@@ -382,56 +383,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This notebook modifies the wrangling step to work with open data. The paper depends on an <code>.Rdata</code> file (that is not publicly available) that contains a set of 10 separate dataframes per product (i.e.&nbsp;category) – see Table 1 in the paper for a summary stats by product. To work with the <a href="https://code.officialstatistics.org/scanner-task-team-gwg/FEWS_package/-/blob/master/data/SampleDataSet.csv?ref_type=heads">open New Zealand data</a> that is similar - I modified the wrangling step.</p>
-<div id="374c5f4e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="9">
-<details class="code-fold">
-<summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre>── <span class="ansi-bold">Attaching core tidyverse packages</span> ──────────────────────── tidyverse 2.0.0 ──
-
-<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">dplyr    </span> 1.1.4     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">readr    </span> 2.1.5
-
-<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">forcats  </span> 1.0.1     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">stringr  </span> 1.5.2
-
-<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">ggplot2  </span> 4.0.0     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tibble   </span> 3.3.0
-
-<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">lubridate</span> 1.9.4     <span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">tidyr    </span> 1.3.1
-
-<span class="ansi-green-fg">✔</span> <span class="ansi-blue-fg">purrr    </span> 1.1.0     
-
-── <span class="ansi-bold">Conflicts</span> ────────────────────────────────────────── tidyverse_conflicts() ──
-
-<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">filter()</span> masks <span class="ansi-blue-fg">stats</span>::filter()
-
-<span class="ansi-red-fg">✖</span> <span class="ansi-blue-fg">dplyr</span>::<span class="ansi-green-fg">lag()</span>    masks <span class="ansi-blue-fg">stats</span>::lag()
-
-<span class="ansi-cyan-fg">ℹ</span> Use the conflicted package (<span style="font-style:italic" class="ansi-blue-fg">&lt;http://conflicted.r-lib.org/&gt;</span>) to force all conflicts to become errors
-</pre>
-</div>
-</div>
-</div>
 <section id="overview-of-requirements" class="level2">
 <h2 class="anchored" data-anchor-id="overview-of-requirements">1. Overview of requirements</h2>
-<section id="input" class="level3">
-<h3 class="anchored" data-anchor-id="input">Input</h3>
+<section id="research-expected-input" class="level3">
+<h3 class="anchored" data-anchor-id="research-expected-input">Research expected input</h3>
 <p>The <code>.Rdata</code> file contains 10 dataframes - each has the following variables: - <code>period</code>, Date format e.g.&nbsp;“2021-06-01” - <code>price</code>, num format - <code>volume</code>, num format - <code>value</code>, num format - <code>id</code>, Factor format</p>
+</section>
+<section id="data-input-that-is-available" class="level3">
+<h3 class="anchored" data-anchor-id="data-input-that-is-available">Data input that is available</h3>
+<p>The <code>csv</code> dataset is a little different: * <code>month_num</code> * <code>char1</code> - <code>char11</code> (11 char variables of various kinds) * <code>prodid_num</code> * <code>quantity</code> * <code>value</code></p>
+<p>We don’t have a <code>price</code> variable but it may be applicable to make it from <code>value/quantity</code> (although this is an assumption). See the fuller <a href="https://sergegoussev.github.io/price_stats_experiments/notebooks/nz_electronics_2019.html">dataset exploration</a> for more info.</p>
 </section>
 <section id="steps-to-take" class="level3">
 <h3 class="anchored" data-anchor-id="steps-to-take">Steps to take</h3>
 <p>The wrangling script <a href="https://github.com/sergegoussev/quality_decomposition/blob/main/R/qualdecomp_1wrangle.R">qualdecomp_1wrangle.R</a> takes each and computes the following: 1. Calculate expenditure shares per product as a proportion of the total expenditure on all products. 2. Derives the log of price 3. Makes the period a factor for the TPD</p>
 </section>
 </section>
-<section id="steps-to-replicate" class="level2">
-<h2 class="anchored" data-anchor-id="steps-to-replicate">Steps to replicate</h2>
+<section id="replicating-the-process-with-another-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="replicating-the-process-with-another-dataset">Replicating the process with another dataset</h2>
+<p>The following steps are then followed in order to replicate the wrangling process with the open NZ data.</p>
 <section id="step-1a.-load-the-raw-data" class="level3">
 <h3 class="anchored" data-anchor-id="step-1a.-load-the-raw-data">Step 1a. Load the raw data</h3>
 <div id="59c3c4ce" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/raw/NZ_dataset_historic_raw.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(alldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>alldata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/raw/NZ_dataset_historic_raw.csv"</span>, <span class="at">header =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(alldata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small">
@@ -593,13 +570,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="1566a483" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="35">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>product <span class="ot">&lt;-</span> alldata <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="fu">c</span>(month_num, prodid_num, quantity, value)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">expenditure =</span> value) <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> value<span class="sc">/</span>quantity) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(value)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">i =</span> prodid_num, <span class="at">period =</span> month_num)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>product <span class="ot">&lt;-</span> alldata <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="fu">c</span>(month_num, prodid_num, quantity, value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">expenditure =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">price =</span> value<span class="sc">/</span>quantity) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">i =</span> prodid_num, <span class="at">period =</span> month_num)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small">
@@ -681,18 +658,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="a79fd86d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="36">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tot_exps <span class="ot">&lt;-</span> product <span class="sc">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(period) <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_exp =</span> <span class="fu">sum</span>(expenditure))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>product_s_l <span class="ot">&lt;-</span> <span class="fu">merge</span>(product, tot_exps, <span class="at">by =</span> <span class="st">"period"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exp_share =</span> expenditure<span class="sc">/</span>tot_exp,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">logprice =</span> <span class="fu">log</span>(price)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(tot_exp)) </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>product_s_l<span class="sc">$</span>period <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(product_s_l<span class="sc">$</span>period)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product_s_l)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tot_exps <span class="ot">&lt;-</span> product <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(period) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tot_exp =</span> <span class="fu">sum</span>(expenditure))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>product_s_l <span class="ot">&lt;-</span> <span class="fu">merge</span>(product, tot_exps, <span class="at">by =</span> <span class="st">"period"</span>, <span class="at">all =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">exp_share =</span> expenditure<span class="sc">/</span>tot_exp,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">logprice =</span> <span class="fu">log</span>(price)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="at">select =</span> <span class="sc">-</span><span class="fu">c</span>(tot_exp)) </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>product_s_l<span class="sc">$</span>period <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(product_s_l<span class="sc">$</span>period)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(product_s_l)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small">
@@ -787,11 +764,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="save-the-processed-data" class="level3">
 <h3 class="anchored" data-anchor-id="save-the-processed-data">Save the processed data</h3>
-<p>Specifically to <code>/data/processed/</code></p>
+<p>To help replicate other aspects of the research - save the processed dataset to <code>/data/processed/</code>.</p>
 <div id="7104105f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="58">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(product_s_l, <span class="st">"../data/processed/product_s_1_raw.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(product_s_l, <span class="st">"../data/processed/product_s_1_raw.csv"</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 
