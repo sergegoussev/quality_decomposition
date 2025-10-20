@@ -16,6 +16,7 @@ website:
   sidebar:
     style: "docked"
     type: "dark"
+    title: "Reproducing Krsinich (2024) Quality Decomposition"
     search: true
     border: true
     contents:
