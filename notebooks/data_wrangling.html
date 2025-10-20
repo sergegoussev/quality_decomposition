@@ -297,12 +297,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       </a>
-      <div class="sidebar-tools-main">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Reproducing Krsinich (2024) Quality Decomposition</a> 
+        <div class="sidebar-tools-main">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
+    </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
@@ -405,11 +408,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="overview-of-requirements">1. Overview of requirements</h2>
 <section id="research-expected-input" class="level3">
 <h3 class="anchored" data-anchor-id="research-expected-input">Research expected input</h3>
-<p>The <code>.Rdata</code> file contains 10 dataframes - each has the following variables: - <code>period</code>, Date format e.g.&nbsp;“2021-06-01” - <code>price</code>, num format - <code>volume</code>, num format - <code>value</code>, num format - <code>id</code>, Factor format</p>
+<p>The <code>.Rdata</code> file contains 10 dataframes - each has the following variables:</p>
+<ul>
+<li><code>period</code>, Date format e.g.&nbsp;“2021-06-01”</li>
+<li><code>price</code>, num format</li>
+<li><code>volume</code>, num format</li>
+<li><code>value</code>, num format</li>
+<li><code>id</code>, Factor format</li>
+</ul>
 </section>
 <section id="data-input-that-is-available" class="level3">
 <h3 class="anchored" data-anchor-id="data-input-that-is-available">Data input that is available</h3>
-<p>The <code>csv</code> dataset is a little different: * <code>month_num</code> * <code>char1</code> - <code>char11</code> (11 char variables of various kinds) * <code>prodid_num</code> * <code>quantity</code> * <code>value</code></p>
+<p>The <code>csv</code> dataset is a little different:</p>
+<ul>
+<li><code>month_num</code></li>
+<li><code>char1</code> - <code>char11</code> (11 char variables of various kinds)</li>
+<li><code>prodid_num</code></li>
+<li><code>quantity</code></li>
+<li><code>value</code></li>
+</ul>
 <p>We don’t have a <code>price</code> variable but it may be applicable to make it from <code>value/quantity</code> (although this is an assumption). See the fuller <a href="https://sergegoussev.github.io/price_stats_experiments/notebooks/nz_electronics_2019.html">dataset exploration</a> for more info.</p>
 </section>
 <section id="steps-to-take" class="level3">
