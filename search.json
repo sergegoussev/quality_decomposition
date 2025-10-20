@@ -51,5 +51,16 @@
     "crumbs": [
       "Overview"
     ]
+  },
+  {
+    "objectID": "notebooks/tpd.html",
+    "href": "notebooks/tpd.html",
+    "title": "Time Product Dummy",
+    "section": "",
+    "text": "To replicate the qualdecomp_2runTPD.R script and create a time product dummy on the NZ electronics data.\n\n\n\n Back to top",
+    "crumbs": [
+      "Price indices",
+      "Time Product Dummy"
+    ]
   }
 ]
