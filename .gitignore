@@ -3,6 +3,12 @@
 .RData
 .Ruserdata
 
+# Quarto files
+_site/
+*.html
+/.quarto/
+*_cache/
+*_files/
 
 # Raw data
 *_raw.csv

@@ -1,0 +1,17 @@
+{
+  "hash": "783c740e18e7574b6704162f293affd7",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Constructing price indices\"\nexecute:\n  echo: true\n  output: true\nformat:\n  html:\n    toc: true\n    toc-expand: true\n    code-fold: true\n    code-summary: \"Show code\"\n---\n\n\n\nAlongside decomposition and analysis/diagnostics - Krsinich evaluates 3 types of price indices:\n\n1.  Matched Model Törnqvist\n2.  GEKS-Törnqvist (or CCDI)\n3.  Time Product Dummy\n\nPrior to decomposing them, lets build these out of the box\n\n::: {.callout-note collapse=\"true\"}\n## Quick reference of `gpindex` to do price index measures\n\nThe R package [`gpindex`](https://marberts.github.io/gpindex/index.html) is a pretty powerful package that has a lot of helper functions for price index methods under the hood. This brief summarizes some key indices\n\n### Just two periods with play data\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(gpindex)\n\n# Import play dataset\nhead(price6)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n  t1  t2  t3  t4  t5\n1  1 1.2 1.0 0.8 1.0\n2  1 3.0 1.0 0.5 1.0\n3  1 1.3 1.5 1.6 1.6\n4  1 0.7 0.5 0.3 0.1\n5  1 1.4 1.7 1.9 2.0\n6  1 0.8 0.6 0.4 0.2\n```\n\n\n:::\n\n```{.r .cell-code}\nhead(quantity6)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n   t1  t2  t3  t4   t5\n1 1.0 0.8 1.0 1.2  0.9\n2 1.0 0.9 1.1 1.2  1.2\n3 2.0 1.9 1.8 1.9  2.0\n4 1.0 1.3 3.0 6.0 12.0\n5 4.5 4.7 5.0 5.6  6.5\n6 0.5 0.6 0.8 1.3  2.5\n```\n\n\n:::\n\n```{.r .cell-code}\n# Focus on only 2 periods\np1 <- price6$t1\np2 <- price6$t2\nq1 <- quantity6$t1\nq2 <- quantity6$t2\n\n# Calculate some basic out-of-the-box indices (for comparison purposes)\njevons_index(p2, p1)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.24192\n```\n\n\n:::\n\n```{.r .cell-code}\nlaspeyres_index(p2, p1, q1)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.42\n```\n\n\n:::\n\n```{.r .cell-code}\npaasche_index(p2, p1, q2)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.382353\n```\n\n\n:::\n\n```{.r .cell-code}\nfisher_index(p2, p1, q2, q1)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.40105\n```\n\n\n:::\n\n```{.r .cell-code}\n# Calculate Tornqvist\n\n# Calculate expenditure shares\ns1 <- (p1 * q1) / sum(p1 * q1)\ns2 <- (p2 * q2) / sum(p2 * q2)\n\n# Calculate the Tornqvist weights\nw_torn <- (s1 + s2) / 2\n\n# Calculate price relatives\nr <- p2 / p1\n\n# Calculate the Tornqvist index\ntornqvist_val <- geometric_mean(r, w_torn)\nprint(tornqvist_val)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n[1] 1.405162\n```\n\n\n:::\n:::\n\n\n\n:::\n\n# Matched Model Törnqvist\n\n\n# GEKT-T\n\n\n\n# Time Product Dummy\n\n\n",
+    "supporting": [
+      "prince-indices_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

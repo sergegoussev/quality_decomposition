@@ -1,0 +1,93 @@
+---
+title: "Constructing price indices"
+execute:
+  echo: true
+  output: true
+format:
+  html:
+    toc: true
+    toc-expand: true
+---
+
+Alongside decomposition and analysis/diagnostics - Krsinich evaluates 3 types of price indices:
+
+1.  Matched Model Törnqvist
+2.  GEKS-Törnqvist (or CCDI)
+3.  Time Product Dummy
+
+Prior to decomposing them, lets build these out of the box
+
+::: {.callout-note collapse="true"}
+## Quick reference of `gpindex` to do price index measures
+
+The R package [`gpindex`](https://marberts.github.io/gpindex/index.html) is a pretty powerful package that has a lot of helper functions for price index methods under the hood. This brief summarizes some key indices
+
+### Just two periods with play data
+
+Use some play data built into the package to construct basic indices:
+
+```{r}
+library(gpindex)
+
+p1 <- price6$t1
+p2 <- price6$t2
+q1 <- quantity6$t1
+q2 <- quantity6$t2
+
+head(price6)
+head(quantity6)
+```
+
+Jevons index
+
+$$
+P_J^{0,t}=\prod_{i}^N(\frac{p_i^t}{p_i^0})^\frac{1}{N}
+$$
+
+```{r}
+# Calculate some basic out-of-the-box indices (for comparison purposes)
+jevons_index(p2, p1)
+```
+
+Laspeyres
+
+```{r}
+laspeyres_index(p2, p1, q1)
+```
+
+Paasche Index
+
+```{r}
+paasche_index(p2, p1, q2)
+```
+
+Fisher index
+
+```{r}
+fisher_index(p2, p1, q2, q1)
+```
+
+Törnqvist
+
+```{r}
+# Calculate expenditure shares
+s1 <- (p1 * q1) / sum(p1 * q1)
+s2 <- (p2 * q2) / sum(p2 * q2)
+
+# Calculate the Tornqvist weights
+w_torn <- (s1 + s2) / 2
+
+# Calculate price relatives
+r <- p2 / p1
+
+# Calculate the Tornqvist index
+tornqvist_val <- geometric_mean(r, w_torn)
+print(tornqvist_val)
+```
+:::
+
+# Matched Model Törnqvist
+
+# GEKT-T
+
+# Time Product Dummy

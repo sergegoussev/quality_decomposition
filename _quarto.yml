@@ -27,7 +27,7 @@ website:
           - href: notebooks/data_wrangling.ipynb
       - section: "Price indices"
         contents: 
-          - href: notebooks/tpd.ipynb
+          - href: notebooks/price-indices.qmd
 
 
 
