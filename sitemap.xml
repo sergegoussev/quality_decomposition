@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sergegoussev.github.io/quality_decomposition/notebooks/data_wrangling.html</loc>
-    <lastmod>2025-10-20T03:48:22.834Z</lastmod>
-  </url>
-  <url>
-    <loc>https://sergegoussev.github.io/quality_decomposition/docs/index.html</loc>
-    <lastmod>2025-10-20T03:48:22.834Z</lastmod>
+    <lastmod>2025-12-27T02:50:33.910Z</lastmod>
   </url>
   <url>
     <loc>https://sergegoussev.github.io/quality_decomposition/notebooks/tpd.html</loc>
-    <lastmod>2025-10-20T03:48:22.835Z</lastmod>
+    <lastmod>2025-12-27T02:50:33.910Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sergegoussev.github.io/quality_decomposition/docs/index.html</loc>
+    <lastmod>2025-12-27T02:50:33.910Z</lastmod>
+  </url>
+  <url>
+    <loc>https://sergegoussev.github.io/quality_decomposition/notebooks/price-indices.html</loc>
+    <lastmod>2025-12-27T02:50:33.910Z</lastmod>
   </url>
 </urlset>
